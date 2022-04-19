@@ -33,7 +33,8 @@ router.get('/:id', function(req, res) {
   router.post('/', function(req, res) {
     collection.insert({
         name:req.body.name,
-        email:req.body.email
+        email:req.body.email, 
+
     },function(err,tutors){
       if(err) throw err;
       res.json(tutors);
@@ -45,7 +46,8 @@ router.get('/:id', function(req, res) {
   router.put('/:id', function(req, res) {
     collection.update({_id : req.params.id},{$set : {
         name:req.body.name,
-        email:req.body.email
+        email:req.body.email,
+        username:req.body.username
     }},function(err,tutors){
       if(err) throw err;
       res.json(tutors);
