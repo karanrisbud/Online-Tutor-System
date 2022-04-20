@@ -32,9 +32,18 @@ router.get('/:id', function(req, res) {
 
   router.post('/', function(req, res) {
     collection.insert({
-        name:req.body.name,
-        email:req.body.email, 
-
+      name:req.body.name,
+      course:req.body.course,
+      tutor_id:req.body.tutor_id,
+      username:req.body.username,
+      password:req.body.password,
+      email:req.body.email,
+      about_me:req.body.about_me,
+      image:req.body.image,
+      working_hours:req.body.image,
+      total_tutoring_hours:req.body.total_tutoring_hours,
+      average_ratings:req.body.average_ratings,
+      available_hours:req.body.available_hours
     },function(err,tutors){
       if(err) throw err;
       res.json(tutors);
@@ -46,8 +55,17 @@ router.get('/:id', function(req, res) {
   router.put('/:id', function(req, res) {
     collection.update({_id : req.params.id},{$set : {
         name:req.body.name,
+        course:req.body.course,
+        tutor_id:req.body.tutor_id,
+        username:req.body.username,
+        password:req.body.password,
         email:req.body.email,
-        username:req.body.username
+        about_me:req.body.about_me,
+        image:req.body.image,
+        working_hours:req.body.image,
+        total_tutoring_hours:req.body.total_tutoring_hours,
+        average_ratings:req.body.average_ratings,
+        available_hours:req.body.available_hours
     }},function(err,tutors){
       if(err) throw err;
       res.json(tutors);
