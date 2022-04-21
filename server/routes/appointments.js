@@ -7,11 +7,11 @@ var collection_appointments = db.get('Appointments');
 var collection_users = db.get('Users');
 
 router.get('/:appointment_id', function(req, res) {
-  collection_appointments.find({_id : req.params.appointment_id},function(err,appointments){
+  collection_appointments.find({_id : req.params.appointment_id},function(err,tutors){
     if(err) throw err;
-    res.json(appointments);
+    res.json(tutors);
 
   })
 });
 
-module.exports = router;
+  module.exports = router;
