@@ -1,31 +1,17 @@
 var express = require('express');
+const req = require('express/lib/request');
 var router = express.Router();
 var monk = require('monk');
 var db = monk("mongodb+srv://karanrisbud:wplproject39@cluster0.syl2z.mongodb.net/WPL?retryWrites=true&w=majority");
-var collection = db.get('Users');
+var collection_appointments = db.get('Appointments');
+var collection_users = db.get('Users');
 
-/* GET home page. */
-router.get('/:user_id', function(req, res) {
-  collection.find({_id : req.params.user_id},'appointment',function(err,users){
+router.get('/:appointment_id', function(req, res) {
+  collection_appointments.find({_id : req.params.appointment_id},function(err,appointments){
     if(err) throw err;
-    res.json(users);
+    res.json(appointments);
 
   })
 });
-
-router.get('/:user_id/:appointment_id', function(req, res) {
-  collection.find({
-      '_id': req.params.user_id,
-      'appointment' : {
-        "appointment_id" : 22
-      }
-  },'appointment',function(err,users){
-    if(err) throw err;
-    res.json(users);
-
-  })
-});
-
-
 
 module.exports = router;
