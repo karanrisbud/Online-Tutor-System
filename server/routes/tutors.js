@@ -4,7 +4,7 @@ var monk = require('monk');
 var db = monk("mongodb+srv://karanrisbud:wplproject39@cluster0.syl2z.mongodb.net/WPL?retryWrites=true&w=majority");
 var collection = db.get('Tutors');
 
-/* GET home page. */
+
 router.get('/', function(req, res) {
   collection.find({},function(err,tutors){
     if(err) throw err;
