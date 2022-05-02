@@ -11,6 +11,13 @@ var appointmentsRouter = require('./routes/appointments');
 
 var app = express();
 
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST');
+  res.append('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-auth-token');
+  next();
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
