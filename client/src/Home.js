@@ -11,7 +11,7 @@ class Home extends Component {
         fetch('tutors.json',{
         headers : {
           'Content-Type':'appication/json',
-          'Accept' : 'aaplication/json'
+          'Accept' : 'application/json'
         }
       })
     
@@ -37,21 +37,21 @@ class Home extends Component {
     
     
                     <li>
-                        <a href="#"><i className="fa fa-user" aria-hidden="true"></i> Profile</a>
+                    <li>
+                    <Link to = {`/profile`}><a href="#"><i className="fa fa-book" aria-hidden="true"></i>Profile</a></Link>
+                    </li> 
                     </li>
     
                     <li>
-                        <a href="#"><i className="fa fa-shopping-cart" aria-hidden="true"></i> Add Courses</a>
-                    </li>
-    
-                    <li>
-                        <a href="#"><i className="fa fa-book" aria-hidden="true"></i> My Courses</a>
+                        <a href="#"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Appointments</a>
                     </li>
                     <li>
-                    <Link to = {`tutors/`}><a href="#"><i className="fa fa-book" aria-hidden="true"></i>Tutors</a></Link>
+                    <Link to = {`/tutors`}><a href="#"><i className="fa fa-book" aria-hidden="true"></i>Tutors</a></Link>
                     </li>    
                     <li>
-                        <a href="#"><i className="fa fa-star" aria-hidden="true"></i> Favorites</a>
+                    <li>
+                    <Link to = {`/favourites`}><a href="#"><i className="fa fa-book" aria-hidden="true"></i>Favourites</a></Link>
+                    </li> 
                     </li>
                     <li>
                         <a href="#"><i className="fa fa-key" aria-hidden="true"></i> Change Password</a>
@@ -82,11 +82,11 @@ class Home extends Component {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="nav navbar-nav ml-auto">
                                 <li className="nav-item active">
-                                    <a className="nav-link" href="#"><i className="fa fa-home" aria-hidden="true"></i> Home</a>
+                                <Link to = {`/`}><a href="#"><i className="fa fa-home" aria-hidden="true"></i>Home</a></Link>
                                 </li>
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="#"><i className="fa fa-users" aria-hidden="true"></i> About</a>
-                                </li>
+                                <li>
+                                    <Link to = {`/about`}><a href="#"><i className="fa fa-users" aria-hidden="true"></i>About</a></Link>
+                                </li> 
                                 <li className="nav-item active">
                                     <a className="nav-link" href="#"><i className="fa fa-phone" aria-hidden="true"></i> Contact</a>
                                 </li>

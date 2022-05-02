@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-class Tutor extends Component {
+class Favourites extends Component {
     state = {  } 
     render() { 
         return (
-            <h1>Tutor Page</h1>
+            <h1>Favourites Page</h1>
         );
     }
 }
  
-export default Tutor;
+export default Favourites;
