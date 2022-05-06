@@ -65,7 +65,7 @@ if (error) {
                         </div>
                       </div>
                       <Link to = {`/`}><a href="#"></a><button class="button" style ={{padding : '10px 15px 10px 15px'}}>
-              Edit
+              Back
             </button></Link>
                     </div>
                   </div>
