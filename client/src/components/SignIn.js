@@ -1,7 +1,7 @@
 import React, {useState,setState} from 'react';
 import Header from './Header.js';
 import './style.css'
-function SignUp() {
+function SignIn() {
     
 
     const [email,setEmail] = useState(null);
@@ -41,8 +41,9 @@ function SignUp() {
   
               let inMemoryToken = data.token;
               console.log(inMemoryToken);
-  
               localStorage.setItem('user', JSON.stringify(data));
+              alert("logined Succesfully");
+              window.location.href = '/welcome';
   
               
           })
@@ -50,19 +51,7 @@ function SignUp() {
             console.log(error.message);
           
           });
-          const localstorage_user = JSON.parse(localStorage.getItem('user'))
-          fetch( "http://localhost:3000/welcome", {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'x-auth-token': localstorage_user.token
-                
-            }
 
-        })
-        .then( res => res.json() )
-        .then( res => console.log( res ) );
     }
 
 
@@ -93,5 +82,5 @@ function SignUp() {
     )       
 }
 
-export default SignUp
+export default SignIn
 

@@ -78,7 +78,7 @@ router.post('/userregister', function(req, res) {
 						user.token = token;
 
 					 }
-					res.json(user);
+					res.json({status : "ok"});
 
 				})
 

@@ -20,7 +20,6 @@ else{
 
     try{
         var decoded = jwt.verify(token, 'secretkey');
-        console.log(decoded);
         return next();
 
     } catch(err){

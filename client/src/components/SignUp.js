@@ -3,6 +3,7 @@ import Header from './Header.js';
 import './style.css'
 function SignUp() {
     
+    
     const [username, setUsername] = useState(null);
     const [name, setName] = useState(null);
     const [mobile_no, setMobile_no] = useState(null);
@@ -50,6 +51,10 @@ function SignUp() {
               "password" : password       
             } )
           })
+          alert('Registered Successfully')
+          window.location.href = '/signin'
+
+          
     }
 
     return(
@@ -88,7 +93,7 @@ function SignUp() {
                 </div>
 
             </div>
-            <div class="footer">
+            <div className="footer">
                 <button onClick={()=>handleSubmit()} type="submit" class="btn">Register</button>
             </div>
         </div>
