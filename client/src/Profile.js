@@ -1,5 +1,6 @@
 import React, { useState, useEffect }  from 'react';
 import './profile_style.css'
+import {Link} from 'react-router-dom';
 
 const Profile = () => {
 const [error, setError] = useState(null);
@@ -88,9 +89,9 @@ if (error) {
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         </div>
                       </div>
-                      <button class="button" onClick={() => alert('Going Back')} style ={{padding : '10px 15px 10px 15px'}}>
+                      <Link to = {`/`}><a href="#"></a><button class="button" style ={{padding : '10px 15px 10px 15px'}}>
               Back
-            </button>
+            </button></Link>
                     </div>
                   </div>
                 </div>
