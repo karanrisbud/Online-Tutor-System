@@ -8,7 +8,18 @@ const [error, setError] = useState(null);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/favourites/6261d5490327f88a2e222b3a")
+      try{
+      const localstorage_user = JSON.parse(localStorage.getItem('user'))
+        fetch("http://localhost:3000/favourites/6261d5490327f88a2e222b3a", {
+          method: 'get',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'x-auth-token': localstorage_user.token
+              
+          }
+    
+      })
             .then(res => res.json())
             .then(
                 (data) => {
@@ -19,7 +30,11 @@ const [error, setError] = useState(null);
                     setIsLoaded(true);
                     setError(error);
                 }
-            )
+            )}
+            catch(e)
+            {
+                console.log("Invalid User Token")
+            }
       }, [])
 if (error) {
         return <div>Error: {error.message}</div>;
@@ -54,7 +69,7 @@ if (error) {
                           </table>
                         </div>
                       </div>
-                      <Link to = {`/`}><a href="#"></a><button class="button" style ={{padding : '10px 15px 10px 15px'}}>
+                      <Link to = {`/home`}><a href="#"></a><button class="button" style ={{padding : '10px 15px 10px 15px'}}>
               Back
             </button></Link>
                     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import './profile_style.css'
 import {Link} from 'react-router-dom';
+import Navbar from './Navbar.js'
 
 const Profile = () => {
 const [error, setError] = useState(null);
@@ -8,7 +9,18 @@ const [error, setError] = useState(null);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/profile_user/6261d5490327f88a2e222b3a")
+        try{
+        const localstorage_user = JSON.parse(localStorage.getItem('user'))
+        fetch("http://localhost:3000/profile_user/6261d5490327f88a2e222b3a", {
+          method: 'get',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'x-auth-token': localstorage_user.token
+              
+          }
+    
+      })
             .then(res => res.json())
             .then(
                 (data) => {
@@ -19,7 +31,11 @@ const [error, setError] = useState(null);
                     setIsLoaded(true);
                     setError(error);
                 }
-            )
+            )}
+            catch(e)
+            {
+                console.log("Invalid User Token")
+            }
       }, [])
 if (error) {
         return <div>Error: {error.message}</div>;
@@ -27,9 +43,12 @@ if (error) {
      else {
          console.log(users)
         return (
+          <div>
+            <Navbar />
             <ul>
                 {users.map(user => (
                 <div className="student-profile py-4">
+          
                 <div className="container">
                   <div className="row">
                     <div className="col-lg-4">
@@ -89,7 +108,7 @@ if (error) {
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         </div>
                       </div>
-                      <Link to = {`/`}><a href="#"></a><button class="button" style ={{padding : '10px 15px 10px 15px'}}>
+                      <Link to = {`/home`}><a href="#"></a><button class="button" style ={{padding : '10px 15px 10px 15px'}}>
               Back
             </button></Link>
                     </div>
@@ -98,6 +117,7 @@ if (error) {
               </div>
                 ))}
             </ul>
+            </div>
         );
     }
 }
