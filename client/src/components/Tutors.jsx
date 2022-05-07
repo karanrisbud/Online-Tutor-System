@@ -47,7 +47,7 @@ class Tutors extends Component {
     if (this.state.clicked === false) {
       return (
         <div>
-          <h2 style={{ textAlign: "center" }}>Renowned Professors</h2>
+          <h2 style={{ textAlign: "center" }}>Reknowned Professors</h2>
           <input
             type="text"
             placeholder="Search Tutor/Subject"

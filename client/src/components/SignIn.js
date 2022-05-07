@@ -43,7 +43,7 @@ function SignIn() {
               console.log(inMemoryToken);
               localStorage.setItem('user', JSON.stringify(data));
               alert("logined Succesfully");
-              window.location.href = '/welcome';
+              window.location.href = '/home';
   
               
           })

@@ -6,10 +6,11 @@ var db = monk("mongodb+srv://karanrisbud:wplproject39@cluster0.syl2z.mongodb.net
 var collection_appointments = db.get('Appointments');
 var collection_users = db.get('Users');
 var collection_tutors = db.get('Tutors');
+const auth = require('./middleware/auth');
 
 
 
-router.get('/:user_id', function(req, res) {
+router.get('/:user_id', auth, function(req, res) {
 
   collection_appointments.aggregate( [
 
@@ -32,7 +33,7 @@ router.get('/:user_id', function(req, res) {
   })
 });
 
-router.get('/:user_id/:appointment_id', function(req, res) {
+router.get('/:user_id/:appointment_id', auth, function(req, res) {
 
   collection_appointments.aggregate( [
 
@@ -56,7 +57,7 @@ router.get('/:user_id/:appointment_id', function(req, res) {
   })
 });
 
-router.post('/:user_id', function(req, res) {
+router.post('/:user_id', auth, function(req, res) {
 
   var user_id = req.params.user_id;
   
@@ -87,7 +88,7 @@ router.post('/:user_id', function(req, res) {
 });
 
 
-router.delete('/:user_id/:appointment_id', function(req, res) {
+router.delete('/:user_id/:appointment_id', auth, function(req, res) {
   collection_appointments.remove({_id : req.params.appointment_id},function(err,tutors){
     if(err) throw err;
     res.json(tutors);
@@ -95,7 +96,7 @@ router.delete('/:user_id/:appointment_id', function(req, res) {
 });
 
 
-router.put('/:user_id/:appointment_id', function(req, res) {
+router.put('/:user_id/:appointment_id', auth, function(req, res) {
   collection_appointments.update({_id : req.params.appointment_id},{$set : {
       time:req.body.time,
       date:req.body.date,

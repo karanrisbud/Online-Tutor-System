@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import './about_style.css'
+import Navbar from './Navbar';
 
 class About extends Component {
     state = {  } 
     render() { 
         return (
+          
             <div>
+              <Navbar />
                 <div className="about-section">
   <h1>About Us</h1>
   <p>Hi, This is Tutor Online</p>

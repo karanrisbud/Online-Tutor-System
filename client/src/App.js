@@ -3,8 +3,6 @@ import Home from './components/Home.js';
 import SignUp from './components/SignUp.js';
 import SignIn from './components/SignIn.js';
 import Welcome from './components/Welcome.js';
-
-import Home from './components/Home.js';
 import Tutor from './components/Tutor.js';
 import Profile from './components/Profile.js';
 import Favourites from './components/Favourites.js';

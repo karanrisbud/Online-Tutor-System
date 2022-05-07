@@ -3,9 +3,10 @@ var router = express.Router();
 var monk = require('monk');
 var db = monk("mongodb+srv://karanrisbud:wplproject39@cluster0.syl2z.mongodb.net/WPL?retryWrites=true&w=majority");
 var collection = db.get('Tutors');
+const auth = require('./middleware/auth');
 
 
-router.get('/', function(req, res) {
+router.get('/', auth, function(req, res) {
   collection.find({},function(err,tutors){
     if(err) throw err;
     console.log(tutors);
@@ -14,7 +15,7 @@ router.get('/', function(req, res) {
   })
 });
 
-router.get('/:id', function(req, res) {
+router.get('/:id', auth, function(req, res) {
     collection.find({_id : req.params.id},function(err,tutors){
       if(err) throw err;
       res.json(tutors);
@@ -22,7 +23,7 @@ router.get('/:id', function(req, res) {
     })
   });
 
-  router.get('/:id', function(req, res) {
+  router.get('/:id', auth, function(req, res) {
     collection.find({_id : req.params.id},function(err,tutors){
       if(err) throw err;
       res.json(tutors);
@@ -30,7 +31,7 @@ router.get('/:id', function(req, res) {
     })
   });
 
-  router.post('/', function(req, res) {
+  router.post('/', auth, function(req, res) {
     collection.insert({
         name:req.body.name,
         subject:req.body.subject,
@@ -50,7 +51,7 @@ router.get('/:id', function(req, res) {
   });
 
 
-  router.put('/:id', function(req, res) {
+  router.put('/:id', auth, function(req, res) {
     collection.update({_id : req.params.id},{$set : {
         name:req.body.name,
         subject:req.body.subject,
@@ -69,7 +70,7 @@ router.get('/:id', function(req, res) {
     })
   });
 
-  router.delete('/:id', function(req, res) {
+  router.delete('/:id', auth, function(req, res) {
     collection.remove({_id : req.params.id},function(err,tutors){
       if(err) throw err;
       res.json(tutors);
