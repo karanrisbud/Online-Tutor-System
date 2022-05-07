@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import StarRatings from "react-star-ratings";
 
-class Tutors extends Component {
+class Tutor_details extends Component {
   constructor() {
     super();
     this.state = {
@@ -266,4 +266,4 @@ class Tutors extends Component {
   }
 }
 
-export default Tutors;
+export default Tutor_details;
