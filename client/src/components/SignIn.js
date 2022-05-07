@@ -6,6 +6,7 @@ function SignIn() {
 
     const [email,setEmail] = useState(null);
     const [password,setPassword] = useState(null);
+    const [errorMessage,seterrorMessage] = useState(null);
 
 
     const handleInputChange = (e) => {
@@ -36,17 +37,21 @@ function SignIn() {
           })
 
           .then( res => res.json() )
-          .then( (data) => { 
-              console.log(data);
-  
-              let inMemoryToken = data.token;
-              console.log(inMemoryToken);
-              localStorage.setItem('user', JSON.stringify(data));
-              alert("logined Succesfully");
-              window.location.href = '/home';
-  
+          .then( 
+                (data) => { 
+                    if(data.status == 'error')
+                        seterrorMessage(data.message);
+                    else
+                    {
+                        let inMemoryToken = data.token;
+                        console.log(inMemoryToken);
+                        localStorage.setItem('user', JSON.stringify(data));
+                        alert("logined Succesfully");
+                        window.location.href = '/home';
+                    }
+
               
-          })
+            })
           .catch((error) => {
             console.log(error.message);
           
@@ -60,6 +65,7 @@ function SignIn() {
             <Header />
         <div className="form">
             <div className="form-body">
+            <p style={{textAlign:"center",color:"red"}}>{errorMessage}</p>
 
                 <div className="email">
                     <label className="form__label" for="email">Email </label>
@@ -73,7 +79,7 @@ function SignIn() {
                 </div>
 
             </div>
-            <div class="footer">
+            <div className="footer">
                 <button onClick={()=>handleSubmit()} type="submit" class="btn">Login</button>
             </div>
         </div>

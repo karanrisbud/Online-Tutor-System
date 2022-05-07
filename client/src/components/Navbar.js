@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 
-class Navbar extends Component {
+function Navbar() {
 
-    render(){
-        return(
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    const handleLogout = () => {
+        localStorage.clear();
+        window.location.href = '/signin';
+    }
+
+    return (  
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark static-top">
             <div className="container">
                 <a className="navbar-brand" href="#">
                     <img src="assets/images/logo.png" height="75px" />
@@ -20,13 +24,12 @@ class Navbar extends Component {
                     <li><a className="nav-link active" href="/appointments" aria-current="page">Appointments</a></li>
                     <li><a className="nav-link active" href="/tutors" aria-current="page">Tutors</a></li>
                     <li><a className="nav-link active" href="/favourites" aria-current="page">Favourites</a></li>
+                    <li><a className="nav-link active" onClick={()=>handleLogout()} href="#" aria-current="page">Logout</a></li>
                 </ul>
             </div>
             </div>
         </nav>
-        )
-    }
-
+    );
 }
 
 export default Navbar;

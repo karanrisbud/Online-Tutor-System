@@ -10,6 +10,7 @@ function SignUp() {
     const [email,setEmail] = useState(null);
     const [password,setPassword] = useState(null);
     const [confirmPassword,setconfirmPassword] = useState(null);
+    const [errorMessage,seterrorMessage] = useState(null);
 
     const handleInputChange = (e) => {
         const {id , value} = e.target;
@@ -34,7 +35,10 @@ function SignUp() {
 
     }
 
-    const handleSubmit  = () => {
+    const handleSubmit  = (e) => {
+
+        e.preventDefault();
+
         
         fetch('http://localhost:3000/userRegister', {
             method: "POST",
@@ -51,10 +55,23 @@ function SignUp() {
               "password" : password       
             } )
           })
-          alert('Registered Successfully')
-          window.location.href = '/signin'
+          .then(res => res.json())
+          .then(
+              (data) => {
+                if(data.status == 'error')
+                    seterrorMessage(data.message);
+                else
+                    {
+                        alert('Registered Successfully')
+                        window.location.href = '/signin';
+                    }
+              },
+              (error) => {
+                console.log(error);
+              }
+          )
 
-          
+       
     }
 
     return(
@@ -62,6 +79,7 @@ function SignUp() {
             <Header />
         <div className="form">
             <div className="form-body">
+            <p style={{textAlign:"center",color:"red"}}>{errorMessage}</p>
                 <div className="username">
                     <label className="form__label" for="username">Username</label>
                     <input className="form__input" type="text" value={username} onChange = {(e) => handleInputChange(e)} id="username" placeholder="Username"/>
@@ -94,9 +112,11 @@ function SignUp() {
 
             </div>
             <div className="footer">
-                <button onClick={()=>handleSubmit()} type="submit" class="btn">Register</button>
+                <button onClick={(e)=>handleSubmit(e)} type="submit" className="btn">Register</button>
             </div>
+            
         </div>
+       
         </div>
        
     )       

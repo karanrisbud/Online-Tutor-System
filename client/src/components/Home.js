@@ -1,5 +1,4 @@
 import Navbar from './Navbar.js'
-import './dropdown_style.css'
 import {Link} from 'react-router-dom';
 
 function Home() {

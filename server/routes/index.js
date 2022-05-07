@@ -22,7 +22,7 @@ router.get('/', function(req, res) {
 //protected route
 router.get('/welcome', auth, function(req, res) {
 
-	res.json({ message: "Welcome!!" } );
+	res.json({ status : "ok",message: "Welcome!!" } );
 });
 
 
@@ -32,7 +32,7 @@ router.post('/userregister', function(req, res) {
 
 	if(!(username && name && mobile_no && email && password)){
 
-		res.json( { error: "All fields are required!" } );
+		res.json( {status:"error" ,message: "Please fill all the fields!" } );
 
 	}
   var schema = new passwordValidator();
@@ -46,7 +46,7 @@ router.post('/userregister', function(req, res) {
 
   if(!schema.validate(password)){
 
-    res.json( { error: "Weak Password!!" } );
+    res.json( { status : "error" ,message: "Weak Password!!" } );
 
   }
 
@@ -56,7 +56,7 @@ router.post('/userregister', function(req, res) {
 			if (err) throw err;
 
 			if (user){
-				res.json({ error : "User already exists. Please login!"} );
+				res.json({status : "error" , message : "User already exists. Please login!"} );
 
 			}
 			else{
@@ -99,7 +99,7 @@ router.post('/userlogin', function(req, res) {
 
 	if(!(email && password)){
 
-		res.json({ error: "All fields are required!" } );
+		res.json({ status : "error" , message: "Please fill all the fields!" } );
 	}
 	else{
 
@@ -107,7 +107,7 @@ router.post('/userlogin', function(req, res) {
 			if (err) throw err;
 			if(user == null){
 
-				res.json({ error: "User doesn't exist" } );
+				res.json({ status : "error" , message: "User doesn't exist" } );
 
 			}
 			else{
@@ -120,7 +120,7 @@ router.post('/userlogin', function(req, res) {
 
 				}
 				else{
-					res.json( {error: "User email or password is incorrect!" } );
+					res.json( {status : "error" , message: "User email or password is incorrect!" } );
 
 				}
 
