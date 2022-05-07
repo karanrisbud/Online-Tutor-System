@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Tutors from './Tutors';
 import Navbar from './Navbar.js'
+import './dropdown_style.css'
 import {Link} from 'react-router-dom';
 
 class Home extends Component {
@@ -39,6 +40,7 @@ class Home extends Component {
     
 
     <Tutors tutorlist = {this.state.tutors} />    
+
             
         </div>
     </div>
