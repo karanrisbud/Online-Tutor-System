@@ -13,6 +13,7 @@ const [name,setName] = useState(null);
 const [mobile_no,setMobile] = useState(null);
 const [username,setUsername] = useState(null);
 const [id,setID] = useState(null);
+const [image,setImage] = useState(null);
 const [errorMessage,seterrorMessage] = useState(null);
 
     useEffect(() => {
@@ -33,12 +34,13 @@ const [errorMessage,seterrorMessage] = useState(null);
                 (data) => {
                     setIsLoaded(true);
                     //setUsers(data);
-                    console.log(data)
+                    //console.log(data)
                     setEmail(data[0].email);
                     setID(data[0]._id);
                     setMobile(data[0].mobile_no);
                     setUsername(data[0].username);
                     setName(data[0].name);
+                    setImage(data[0].image)
                 },
                 (error) => {
                     setIsLoaded(true);
@@ -66,6 +68,7 @@ const [errorMessage,seterrorMessage] = useState(null);
                 .then(res => res.json())
                 .then(
                     (data) => {
+                      console.log(data)
                       setTotHours(data.length);
 
                     },
@@ -96,7 +99,7 @@ if (error) {
                     <div className="col-lg-4">
                       <div className="card shadow-sm">
                         <div className="card-header bg-transparent text-center">
-                          <img className="profile_img" src="./assets/images/prof2.jpg" alt="student dp" />
+                          <img className="profile_img" src="./assets/images/prof21.jpg" alt="student dp" />
                           <h3>{name}</h3>
                         </div>
                         <div className="card-body">

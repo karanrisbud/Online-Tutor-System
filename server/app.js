@@ -11,6 +11,7 @@ var appointmentsRouter = require('./routes/appointments');
 var favouritesRouter = require('./routes/favourites')
 var profileUserRouter = require('./routes/profile_user')
 var profileTutorRouter = require('./routes/profile_tutor')
+var feedbackRouter = require('./routes/feedback')
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use('/appointments', appointmentsRouter);
 app.use('/favourites', favouritesRouter);
 app.use('/profile_user', profileUserRouter);
 app.use('/profile_tutor', profileTutorRouter);
+app.use('/feedback', feedbackRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
