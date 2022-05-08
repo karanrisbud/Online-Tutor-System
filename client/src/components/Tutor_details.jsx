@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import StarRatings from "react-star-ratings";
 import Favourite_button from "./Favourite_button";
+import {Routes,Route} from 'react-router-dom'
+import {Link} from "react-router-dom";
 
 class Tutor_details extends Component {
   constructor() {
@@ -18,6 +20,8 @@ class Tutor_details extends Component {
       tutor_subject: null,
     };
   }
+
+  
 
   searchSpace = (event) => {
     let keyword = event.target.value;
@@ -44,6 +48,7 @@ class Tutor_details extends Component {
       tutor_total_tutoring_hours: tutor.total_tutoring_hours,
       tutor_subject: tutor.subject,
     });
+    localStorage.setItem('tutor_id',this.state.tutor_id);
   };
 
   render() {
@@ -261,7 +266,19 @@ class Tutor_details extends Component {
 
                     <Favourite_button
                      tutor_id = {this.state.tutor_id} />
+
+                     &nbsp;&nbsp;
+
+                
+                    <Link to= '/feedback'>
+                        <button type="button">
+                              Provide Feedback
+                        </button>
+                    </Link>
+
+
                   </div>
+                  
                 </div>
               </div>
             </div>

@@ -1,6 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component, useState,useEffect } from 'react';
 
 function Navbar() {
+
+    const [tutor,setTutor] = useState(false);
+
+    useEffect(() => {
+
+        if(localStorage.getItem("tutor") === null)
+        {
+            setTutor(false);
+        }
+        else{
+            setTutor(true);
+        }
+    
+      },[])
 
     const handleLogout = () => {
         localStorage.clear();
@@ -19,10 +33,11 @@ function Navbar() {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav ms-auto">
                     <li className="nav-item"><a className="nav-link active" aria-current="page" href="/">Home</a></li>
-                    <li><a className="nav-link active" href="/profile" aria-current="page">Profile</a></li>
+                    {!tutor && <li><a className="nav-link active" href="/profile" aria-current="page">Profile</a></li>}
+                    {tutor && <li><a className="nav-link active" href="/tutor_profile" aria-current="page">Profile</a></li>}
                     <li><a className="nav-link active" href="/appointments" aria-current="page">Appointments</a></li>
-                    <li><a className="nav-link active" href="/tutors" aria-current="page">Tutors</a></li>
-                    <li><a className="nav-link active" href="/favourites" aria-current="page">Favourites</a></li>
+                    {!tutor &&<li><a className="nav-link active" href="/tutors" aria-current="page">Tutors</a></li>}
+                    {!tutor &&<li><a className="nav-link active" href="/favourites" aria-current="page">Favourites</a></li>}
                     <li><a className="nav-link active" onClick={()=>handleLogout()} href="#" aria-current="page">Logout</a></li>
                 </ul>
             </div>
