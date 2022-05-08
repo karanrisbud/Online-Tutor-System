@@ -12,6 +12,7 @@ var favouritesRouter = require('./routes/favourites')
 var profileUserRouter = require('./routes/profile_user')
 var profileTutorRouter = require('./routes/profile_tutor')
 var feedbackRouter = require('./routes/feedback')
+var appointmentstutorRouter = require('./routes/appointments_tutor')
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tutors', tutorsRouter);
 app.use('/appointments', appointmentsRouter);
+app.use('/appointments_tutor', appointmentstutorRouter);
 app.use('/favourites', favouritesRouter);
 app.use('/profile_user', profileUserRouter);
 app.use('/profile_tutor', profileTutorRouter);

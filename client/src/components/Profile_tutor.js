@@ -2,14 +2,15 @@ import React, { useState, useEffect }  from 'react';
 import './profile_style.css'
 import {Link} from 'react-router-dom';
 import Navbar from './Navbar.js'
+import StarRatings from "react-star-ratings";
 
-const Profile = () => {
+
+const Profile_tutor = () => {
+
+
 const [error, setError] = useState(null);
-const [isLoaded, setIsLoaded] = useState(false);
-//const [users, setUsers] = useState([]);
-
 const [totHours, setTotHours] = useState(null);
-const [avgRating, setAvgRating] = useState(null);
+const [avgRating, setAvgRating] = useState(0);
 const [email,setEmail] = useState(null);
 const [name,setName] = useState(null);
 const [about_me,setAboutMe] = useState(null);
@@ -18,7 +19,6 @@ const [id,setID] = useState(null);
 const [image,setImage] = useState(null);
 const [subject,setSubject] = useState(null);
 
-const [errorMessage,seterrorMessage] = useState(null);
 
     useEffect(() => {
         try{
@@ -36,8 +36,7 @@ const [errorMessage,seterrorMessage] = useState(null);
             .then(res => res.json())
             .then(
                 (data) => {
-                    setIsLoaded(true);
-                    //setUsers(data);
+
                     console.log(data)
                     setEmail(data[0].email);
                     setID(data[0]._id);
@@ -47,10 +46,7 @@ const [errorMessage,seterrorMessage] = useState(null);
                     setImage(data[0].image)
                     setSubject(data[0].subject)
                 },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
+
             )
             
           }
@@ -74,12 +70,10 @@ const [errorMessage,seterrorMessage] = useState(null);
                 .then(
                     (data) => {
                       setTotHours(data.length);
+                      console.log(data)
 
                     },
-                    (error) => {
-                        setIsLoaded(true);
-                        setError(error);
-                    }
+
                 )
             }
             catch(e)
@@ -101,13 +95,15 @@ const [errorMessage,seterrorMessage] = useState(null);
                   .then(res => res.json())
                   .then(
                       (data) => {
-                        setAvgRating(data.length);
+                        var tot = 0
+                        console.log(data)
+                        for (let i = 0; i < data.length; i++) {
+                            tot = tot + data[i]["rating"]
+                        }
+                        setAvgRating(tot/data.length)
   
                       },
-                      (error) => {
-                          setIsLoaded(true);
-                          setError(error);
-                      }
+
                   )
               }
               catch(e)
@@ -133,10 +129,20 @@ if (error) {
                         <div className="card-header bg-transparent text-center">
                           <img className="profile_img" src={"./assets/images/"+image} alt="student dp" />
                           <h3>{name}</h3>
+                          <StarRatings
+                      rating={avgRating}
+                      starRatedColor="red"
+                      numberOfStars={5}
+                      name="rating"
+                      starDimension="14px"
+                      starSpacing="4px"
+                    /> 
                         </div>
+                        
                         <div className="card-body">
                           <p class="mb-0"><strong class="pr-1">Tutor ID:</strong>{id}</p>
                         </div>
+                         
                       </div>
                     </div>
                     <div className="col-lg-8">
@@ -171,11 +177,16 @@ if (error) {
                               <td width="2%">:</td>
                               <td>{totHours}</td>
                             </tr>
+                            <tr>
+                              <th width="30%">Average Ratings</th>
+                              <td width="2%">:</td>
+                              <td>{avgRating}</td>
+                            </tr>
                           </table>
                         </div>
                       </div>
                         <div style={{height: "26px"}}></div>
-                      <Link to = "/profile_edit"><a href="#"></a><button class="button" style ={{padding : '10px 15px 10px 15px'}}>
+                      <Link to = "/profile_tutor_edit"><a href="#"></a><button class="button" style ={{padding : '10px 15px 10px 15px'}}>
               Edit
             </button></Link>
                     </div>
@@ -187,4 +198,4 @@ if (error) {
         );
     }
 }
-export default Profile;
+export default Profile_tutor;
