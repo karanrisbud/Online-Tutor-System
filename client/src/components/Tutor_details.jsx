@@ -48,7 +48,7 @@ class Tutor_details extends Component {
       tutor_total_tutoring_hours: tutor.total_tutoring_hours,
       tutor_subject: tutor.subject,
     });
-    localStorage.setItem('tutor_id',this.state.tutor_id);
+    localStorage.setItem('tutor_id',tutor._id);
   };
 
   render() {

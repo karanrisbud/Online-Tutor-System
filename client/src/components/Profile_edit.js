@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import './style.css'
 import {Link} from 'react-router-dom';
 import Navbar from './Navbar.js'
-import axios from 'axios'
+
 
 function Profile_edit() {
 
@@ -38,14 +38,7 @@ function Profile_edit() {
 
     }
 
-    const fileUploadHandler = (e) => {
-        const fd = new FormData();
-        fd.append('image',selectedFile,selectedFile.name);
-        axios.post("./assets/tutor_images",fd)
-        .then(res=>{
-            console.log(res)
-        });
-    } 
+
  
     const handleSubmit  = (e) => {
 
@@ -138,11 +131,7 @@ function Profile_edit() {
                     <input  type="mobile_no" id="mobile_no" className="form__input" value={mobile_no} onChange = {(e) => handleInputChange(e)} />
                 </div>
 
-                <div className="image">
-                    <label className="form__label" for="image">Image </label>
-                    <input  type="file" id="image" className="form__input" accept = ".png, .jpg, .jpeg" onChange={(e) => fileSelectedHandler(e)} />
-                    <button onClick={(e) => fileUploadHandler(e)}>Upload</button>
-                </div>
+
 
             </div>
             <div className="footer">
