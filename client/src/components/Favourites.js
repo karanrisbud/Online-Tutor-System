@@ -10,7 +10,7 @@ const [error, setError] = useState(null);
     useEffect(() => {
       try{
       const localstorage_user = JSON.parse(localStorage.getItem('user'))
-        fetch("http://localhost:3000/favourites/6261d5490327f88a2e222b3a", {
+        fetch("http://localhost:3000/favourites/"+localstorage_user._id, {
           method: 'get',
           headers: {
               'Content-Type': 'application/json',

@@ -8,9 +8,8 @@ class About extends Component {
         return (
           
             <div>
-              <Navbar />
                 <div className="about-section">
-  <h1>About Us</h1>
+  <h1>Welcome</h1>
   <p>Hi, This is Tutor Online</p>
   <p>We provide a quick and easy way to connect students with tutors</p>
 </div>
