@@ -2,15 +2,43 @@ import React, { useState, useEffect }  from 'react';
 import Navbar from './Navbar.js'
 import {Link} from 'react-router-dom';
 
-const Profile = () => {
+const Favourites = () => {
 const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [users, setUsers] = useState([]);
 
+    const handleFavourite = (tutor) => {
+      try{
+        const localstorage_user = JSON.parse(localStorage.getItem('user'));
+          fetch("http://localhost:3000/favourites/" + tutor._id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'x-auth-token': localstorage_user.token
+                
+            }
+      
+        })
+              .then(res => res.json())
+              .then(
+                  (data) => {
+                    alert("Removed from favourites");
+                  },
+                  (error) => {
+                    console.log(error);
+                  }
+              )}
+              catch(e)
+              {
+                  console.log("Invalid User Token")
+              }
+    };
+
     useEffect(() => {
       try{
       const localstorage_user = JSON.parse(localStorage.getItem('user'))
-        fetch("http://localhost:3000/favourites/6261d5490327f88a2e222b3a", {
+        fetch("http://localhost:3000/favourites/" + localstorage_user._id, {
           method: 'get',
           headers: {
               'Content-Type': 'application/json',
@@ -35,7 +63,7 @@ const [error, setError] = useState(null);
             {
                 console.log("Invalid User Token")
             }
-      }, [])
+      })
 if (error) {
         return <div>Error: {error.message}</div>;
     } 
@@ -46,32 +74,31 @@ if (error) {
           <div>
             <Navbar />
             <ul>
-                {users.map(user => (
+                {users.map((tutors,id) => (
                 <div className="student-profile py-4">
                 <div className="container">
                     <div className="col-lg-8">
                       <div className="card shadow-sm">
                         <div className="card-header bg-transparent border-0">
-                          <h3 class="mb-0"><i class="far fa-clone pr-1"></i>General Information</h3>
+                          <h3 className="mb-0"><i className="far fa-clone pr-1"></i>General Information</h3>
                         </div>
                         <div className="card-body pt-0">
                           <table className="table table-bordered">
                             <tr>
                               <th width="30%">Professor</th>
                               <td width="2%">:</td>
-                              <td>{user.tutor_name}</td>
+                              <td>{tutors.tutor_name}</td>
                             </tr>
                             <tr>
                               <th width="30%">Subject</th>
                               <td width="2%">:</td>
-                              <td>{user.subject}</td>
+                              <td>{tutors.subject}</td>
                             </tr>
                           </table>
                         </div>
                       </div>
-                      <Link to = {`/home`}><a href="#"></a><button class="button" style ={{padding : '10px 15px 10px 15px'}}>
-              Back
-            </button></Link>
+                      <button className="button" style ={{padding : '10px 15px 10px 15px'}} onClick={() => handleFavourite(tutors)}>Remove from favourites</button>
+            
                     </div>
                   </div>
                 </div>
@@ -83,4 +110,4 @@ if (error) {
         );
     }
 }
-export default Profile;
+export default Favourites;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import StarRatings from "react-star-ratings";
+import Favourite_button from "./Favourite_button";
 
 class Tutor_details extends Component {
   constructor() {
@@ -7,6 +8,7 @@ class Tutor_details extends Component {
     this.state = {
       search: null,
       clicked: false,
+      tutor_id : null,
       tutor_name: null,
       tutor_email: null,
       tutor_image: null,
@@ -33,6 +35,7 @@ class Tutor_details extends Component {
       clicked: !this.state.clicked,
     });
     this.setState({
+      tutor_id : tutor._id,
       tutor_name: tutor.name,
       tutor_image: tutor.image,
       tutor_email: tutor.email,
@@ -255,6 +258,9 @@ class Tutor_details extends Component {
                         </tr>
                       </tbody>
                     </table>
+
+                    <Favourite_button
+                     tutor_id = {this.state.tutor_id} />
                   </div>
                 </div>
               </div>

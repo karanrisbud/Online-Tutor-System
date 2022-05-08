@@ -2,8 +2,8 @@ import React, { useState, useEffect }  from 'react';
 import Navbar from './Navbar.js'
 import {Link} from 'react-router-dom';
 
-const Profile = () => {
-const [error, setError] = useState(null);
+const Appointments = () => {
+    const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [users, setUsers] = useState([]);
 
@@ -94,4 +94,4 @@ if (error) {
         );
     }
 }
-export default Profile;
+export default Appointments;

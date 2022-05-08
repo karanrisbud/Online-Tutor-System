@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import StarRatings from "react-star-ratings";
 import Tutor_details from './Tutor_details.jsx'
 
-const Profile = () => {
+const Tutor = () => {
 const [error, setError] = useState(null);
 const [isLoaded, setIsLoaded] = useState(false);
 const [tutors, setTutors] = useState([]);
@@ -53,4 +53,4 @@ if (error) {
         );
     }
 }
-export default Profile;
+export default Tutor;
