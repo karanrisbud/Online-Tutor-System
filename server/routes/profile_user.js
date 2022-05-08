@@ -14,11 +14,12 @@ router.get('/:id', auth, function(req, res) {
 
 router.put('/:id', auth, function(req, res) {
     collection.update({_id : req.params.id},{$set : {
-      image:req.body.image,
-      mobile_no:req.body.mobile_no
-    }},function(err,favourites){
+      mobile_no:req.body.mobile_no,
+      name:req.body.name,
+      username:req.body.username,
+    }},function(err,profile){
       if(err) throw err;
-      res.json(favourites);
+      res.json(profile);
   
     })
   });
