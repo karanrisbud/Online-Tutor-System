@@ -1,7 +1,7 @@
 import React, {useState,setState} from 'react';
 import Header from './Header.js';
 import './style.css'
-function SignIn() {
+function Tutor_SignIn() {
     
 
     const [email,setEmail] = useState(null);
@@ -24,7 +24,7 @@ function SignIn() {
 
     const handleSubmit  = () => {
       
-        fetch('http://localhost:3000/userlogin', {
+        fetch('http://localhost:3000/tutorlogin', {
             method: "POST",
             headers : { 
               'Content-Type': 'application/json',
@@ -45,9 +45,9 @@ function SignIn() {
                     {
                         let inMemoryToken = data.token;
                         console.log(inMemoryToken);
-                        localStorage.setItem('user', JSON.stringify(data));
+                        localStorage.setItem('tutor', JSON.stringify(data));
                         alert("logined Succesfully");
-                        window.location.href = '/home';
+                        window.location.href = '/';
                     }
 
               
@@ -62,9 +62,8 @@ function SignIn() {
 
     return(
         <div>
-            <Header />
-        <div className="form">
-            <div className="form-body">
+            
+  
             <p style={{textAlign:"center",color:"red"}}>{errorMessage}</p>
 
                 <div className="email">
@@ -78,15 +77,15 @@ function SignIn() {
                     <input className="form__input" type="password"  id="password" value={password} onChange = {(e) => handleInputChange(e)} placeholder="Password"/>
                 </div>
 
-            </div>
+            
             <div className="footer">
                 <button onClick={()=>handleSubmit()} type="submit" class="btn">Login</button>
             </div>
         </div>
-        </div>
+        
        
     )       
 }
 
-export default SignIn
+export default Tutor_SignIn;
 

@@ -1,7 +1,7 @@
 import React, {useState,setState} from 'react';
 import Header from './Header.js';
 import './style.css'
-function SignUp() {
+function User_SignUp() {
     
     
     const [username, setUsername] = useState(null);
@@ -63,7 +63,7 @@ function SignUp() {
                 else
                     {
                         alert('Registered Successfully')
-                        window.location.href = '/signin';
+                        window.location.href = '/user_entry';
                     }
               },
               (error) => {
@@ -76,9 +76,7 @@ function SignUp() {
 
     return(
         <div>
-            <Header />
-        <div className="form">
-            <div className="form-body">
+
             <p style={{textAlign:"center",color:"red"}}>{errorMessage}</p>
                 <div className="username">
                     <label className="form__label" for="username">Username</label>
@@ -110,17 +108,16 @@ function SignUp() {
                     <input className="form__input" type="password" id="confirmPassword" value={confirmPassword} onChange = {(e) => handleInputChange(e)} placeholder="Confirm Password"/>
                 </div>
 
-            </div>
+            
             <div className="footer">
                 <button onClick={(e)=>handleSubmit(e)} type="submit" className="btn">Register</button>
             </div>
             
         </div>
        
-        </div>
        
     )       
 }
 
-export default SignUp
+export default User_SignUp
 

@@ -6,6 +6,7 @@ const Favourites = () => {
 const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [users, setUsers] = useState([]);
+    const [count, setCount] = React.useState(0);
 
     const handleFavourite = (tutor) => {
       try{
@@ -24,6 +25,7 @@ const [error, setError] = useState(null);
               .then(
                   (data) => {
                     alert("Removed from favourites");
+                    setCount(50);
                   },
                   (error) => {
                     console.log(error);
@@ -33,6 +35,7 @@ const [error, setError] = useState(null);
               {
                   console.log("Invalid User Token")
               }
+              
     };
 
     useEffect(() => {
@@ -64,7 +67,8 @@ const [error, setError] = useState(null);
             {
                 console.log("Invalid User Token")
             }
-      })
+          setCount(100);
+      },[count])
 if (error) {
         return <div>Error: {error.message}</div>;
     } 
