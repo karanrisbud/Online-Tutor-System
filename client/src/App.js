@@ -9,6 +9,8 @@ import About from './components/About.js'
 import Feedback from './components/Feedback.js'
 import Appointments from './components/Appointments.js'
 import Profile_edit from './components/Profile_edit.js'
+import Profile_tutor from './components/Profile_tutor.js'
+import Profile_tutor_edit from './components/Profile_tutor_edit.js'
 
 import React, { Component } from 'react';
 import {Routes,Route} from 'react-router-dom'
@@ -24,13 +26,14 @@ class App extends Component {
             <Route path='/welcome' element = {<Welcome />}></Route>
             <Route path='/' element = {<Home />}></Route>
             <Route path='/profile' element = {<Profile />}></Route>
-            <Route path='/tutor_profile' element = {<Profile />}></Route>
+            <Route path='/tutor_profile' element = {<Profile_tutor />}></Route>
             <Route path='/favourites' element = {<Favourites />}></Route>
             <Route path='/about' element = {<About />}></Route>
             <Route path='/tutors' element = {<Tutor />}></Route>
             <Route path='/feedback' element = {<Feedback />}></Route>
             <Route path='/appointments' element = {<Appointments />}></Route>
             <Route path='/profile_edit' element = {<Profile_edit />}></Route>
+            <Route path='/profile_tutor_edit' element = {<Profile_tutor_edit />}></Route>
           </Routes>
           )
  

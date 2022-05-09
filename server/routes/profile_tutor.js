@@ -15,7 +15,10 @@ router.get('/:id', auth, function(req, res) {
 router.put('/:id', auth, function(req, res) {
     collection.update({_id : req.params.id},{$set : {
       subject:req.body.subject,
-      image:req.body.image
+      username:req.body.username,
+      name:req.body.name,
+      about_me:req.body.about_me
+      //image:req.body.image
     }},function(err,favourites){
       if(err) throw err;
       res.json(favourites);

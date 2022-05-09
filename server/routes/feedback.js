@@ -5,7 +5,7 @@ var db = monk("mongodb+srv://karanrisbud:wplproject39@cluster0.syl2z.mongodb.net
 var collection = db.get('Feedback');
 const auth = require('./middleware/auth');
 
-router.get('/:user_id/:tutor_id',auth, function(req, res) {
+router.get('/:user_id/:tutor_id', auth, function(req, res) {
     collection.find({user_id : monk.id(req.params.user_id), tutor_id : monk.id(req.params.tutor_id)},function(err,feedback){
       if(err) throw err;
       res.json(feedback);
@@ -13,7 +13,9 @@ router.get('/:user_id/:tutor_id',auth, function(req, res) {
     })
   });
 
-  router.get('/:tutor_id',auth, function(req, res) {
+
+  router.get('/:tutor_id', auth, function(req, res) {
+
     collection.find({tutor_id : monk.id(req.params.tutor_id)},function(err,feedback){
       if(err) throw err;
       res.json(feedback);
@@ -21,7 +23,9 @@ router.get('/:user_id/:tutor_id',auth, function(req, res) {
     })
   });
 
-  router.post('/',auth, function(req, res) {
+
+  router.post('/', auth, function(req, res) {
+
     collection.insert({
         user_id:monk.id(req.body.user_id),
         tutor_id:monk.id(req.body.tutor_id),
@@ -33,6 +37,7 @@ router.get('/:user_id/:tutor_id',auth, function(req, res) {
   
     })
   });
+
 
   router.put('/:id', auth, function(req, res) {
     collection.update({_id : monk.id(req.params.id)},{$set : {
@@ -48,7 +53,9 @@ router.get('/:user_id/:tutor_id',auth, function(req, res) {
 
 
 
-  router.delete('/:user_id/:tutor_id',auth, function(req, res) {
+
+  router.delete('/:user_id/:tutor_id', auth, function(req, res) {
+
     collection.remove({user_id : monk.id(req.params.user_id), tutor_id : monk.id(req.params.tutor_id)},function(err,feedback){
       if(err) throw err;
       res.json(feedback);
