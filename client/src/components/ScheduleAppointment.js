@@ -10,7 +10,7 @@ function ScheduleAppointment() {
     var mm_max = week.getMonth()+1;
     var yyyy_max = week.getFullYear();
 
-    var today = new Date(new Date().setDate(new Date().getDate() + 1));
+    var today = new Date(new Date().setDate(new Date().getDate()));
     var dd_min = today.getDate();
     var mm_min = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
     var yyyy_min = today.getFullYear();

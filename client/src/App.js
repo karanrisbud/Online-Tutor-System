@@ -15,6 +15,7 @@ import Profile_tutor_edit from './components/Profile_tutor_edit.js'
 import React, { Component } from 'react';
 import {Routes,Route} from 'react-router-dom'
 import ScheduleAppointment from './components/ScheduleAppointment.js';
+import AppointmentsTutor from './components/AppointmentsTutor.js';
 
 class App extends Component {
     
@@ -35,6 +36,7 @@ class App extends Component {
             <Route path='/schedule_appointment' element = {<ScheduleAppointment />}></Route>
             <Route path='/reviews' element = {<Reviews />}></Route>
             <Route path='/appointments' element = {<Appointments />}></Route>
+            <Route path='/tutor_appointments' element = {<AppointmentsTutor />}></Route>
             <Route path='/profile_edit' element = {<Profile_edit />}></Route>
             <Route path='/profile_tutor_edit' element = {<Profile_tutor_edit />}></Route>
           </Routes>

@@ -50,7 +50,7 @@ function Reviews() {
             </button></Link> &nbsp;&nbsp;
             
 
-            <table  className="table table-bordered" style={{width:"80%",marginLeft:"10%"}}>
+            <table  className="table table-bordered table-light" style={{width:"80%",marginLeft:"10%"}}>
                 <thead className="thead-dark">
                     <tr>
                     <th scope="col">#</th>

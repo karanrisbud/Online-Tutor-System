@@ -40,7 +40,12 @@ const [errorMessage,seterrorMessage] = useState(null);
                     setMobile(data[0].mobile_no);
                     setUsername(data[0].username);
                     setName(data[0].name);
-                    setImage(data[0].image)
+                    if(data[0].image)
+                    {
+                      setImage("assets/user_images/" + data[0].image);
+                    }
+                    else
+                      setImage("assets/user_images/prof_default.jpg");
                 },
                 (error) => {
                     setIsLoaded(true);
@@ -99,7 +104,7 @@ if (error) {
                     <div className="col-lg-4">
                       <div className="card shadow-sm">
                         <div className="card-header bg-transparent text-center">
-                          <img className="profile_img" src="./assets/images/prof21.jpg" alt="student dp" />
+                          <img className="profile_img" src={image}  />
                           <h3>{name}</h3>
                         </div>
                         <div className="card-body">

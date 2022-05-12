@@ -2,11 +2,10 @@ import React, {useState,useEffect} from 'react';
 import './style.css'
 import {Link} from 'react-router-dom';
 import Navbar from './Navbar.js'
+import axios from 'axios'
 
 
 function Profile_tutor_edit() {
-
-    const [selectedFile,setselectedFile] = useState(null);
 
     const [email,setEmail] = useState(null);
     const [name,setName] = useState(null);
@@ -15,6 +14,39 @@ function Profile_tutor_edit() {
     const [id,setID] = useState(null);
     const [image,setImage] = useState(null);
     const [subject,setSubject] = useState(null);
+    const [uploadedFile, setuploadedFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState();
+	const [isSelected, setIsSelected] = useState(false);
+
+	const changeHandler = (event) => {
+		setSelectedFile(event.target.files[0]);
+		setIsSelected(true);
+	};
+
+    const handleSubmission = async () => {
+		const formData = new FormData();
+		formData.append('File', selectedFile);
+        const localstorage_tutor = JSON.parse(localStorage.getItem('tutor'));
+        try{
+            const res = await axios.post('http://localhost:3000/profile_tutor/image/' + localstorage_tutor._id,formData,{
+
+                headers : {
+                    'Content-Type': 'multipart/form-data',
+                }
+            });
+            const {fileName,filePath} = res.data;
+            setuploadedFile({fileName,filePath});
+            alert("Profile image Uploaded Successfully");
+            
+
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
+       
+	};
+	
     
 
     const handleInputChange = (e) => {
@@ -132,16 +164,26 @@ function Profile_tutor_edit() {
                     <input  type="subject" id="subject" className="form__input" value={subject} onChange = {(e) => handleInputChange(e)} />
                 </div>
 
-                <div className="subject">
+                <div className="about_me">
                     <label className="form__label" for="about_me">About Me </label>
-                    <input  type="about_me" id="about_me" className="form__input" value={about_me} onChange = {(e) => handleInputChange(e)} />
+                    <textarea id="about_me" className="form__input" value={about_me} onChange = {(e) => handleInputChange(e)} />
                 </div>
+                <div className="file">
+                    <label className="form__label" for="file">Upload Image</label>
+                    <input  type="file" id="file" name='file' className="form__input" onChange={changeHandler} 
+                        style={{display:"inline"}} />
+                </div>
+                <div>
+				<button onClick={handleSubmission} style={{display:"inline"}}>Upload</button>
+			</div>
+                
 
             </div>
             <div className="footer">
             <Link to = "/tutor_profile"><a href="#"></a><button type="submit" class="btn">Back</button></Link> &nbsp;&nbsp;
             <button onClick={(e)=>handleSubmit(e)} type="submit" class="btn">Edit </button>
             </div>
+            
         </div>
         </div>
        

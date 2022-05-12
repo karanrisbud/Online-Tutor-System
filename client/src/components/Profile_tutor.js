@@ -43,8 +43,17 @@ const [subject,setSubject] = useState(null);
                     setAboutMe(data[0].about_me);
                     setUsername(data[0].username);
                     setName(data[0].name);
-                    setImage(data[0].image)
-                    setSubject(data[0].subject)
+                    setImage(data[0].image);
+                    setSubject(data[0].subject);
+                    console.log(data[0].image);
+                    if(data[0].image)
+                    {
+                      setImage("assets/tutor_images/" + data[0].image);
+                    }
+                    else
+                      setImage("assets/tutor_images/prof_default.jpg");
+                    
+
                 },
 
             )
@@ -127,7 +136,7 @@ if (error) {
                     <div className="col-lg-4">
                       <div className="card shadow-sm">
                         <div className="card-header bg-transparent text-center">
-                          <img className="profile_img" src={"./assets/images/"+image} alt="student dp" />
+                          <img className="profile_img" src={image} />
                           <h3>{name}</h3>
                           <StarRatings
                       rating={avgRating}

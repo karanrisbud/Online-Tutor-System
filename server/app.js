@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var tutorsRouter = require('./routes/tutors');
@@ -32,6 +32,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -42,12 +44,15 @@ app.use('/favourites', favouritesRouter);
 app.use('/profile_user', profileUserRouter);
 app.use('/profile_tutor', profileTutorRouter);
 app.use('/feedback', feedbackRouter);
+const fileUpload = require('express-fileUpload')
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
+app.use(fileUpload());
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

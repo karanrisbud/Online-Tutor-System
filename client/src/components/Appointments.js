@@ -6,11 +6,51 @@ const Appointments = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [users, setUsers] = useState([]);
+    const [count, setCount] = React.useState(0);
+
+    const handleDelete =(user) => {
+
+      try{
+        const localstorage_user = JSON.parse(localStorage.getItem('user'));
+          fetch("http://localhost:3000/appointments/" + user._id + "/" + user.date, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'x-auth-token': localstorage_user.token
+                
+            }
+      
+        })
+              .then(res => res.json())
+              .then(
+                  (data) => {
+                    
+                    if(data.status == "error")
+                    {
+                      alert(data.message);
+                                     
+                    }
+                    else{
+                      alert("Appointment Cancelled Successfully");
+                      setCount(50);
+                    }
+                   
+                  },
+
+              )}
+              catch(e)
+              {
+                  console.log("Invalid User Token")
+              }
+
+    }
 
     useEffect(() => {
       try{
 
-      const localstorage_user = JSON.parse(localStorage.getItem('user'))
+      const localstorage_user = JSON.parse(localStorage.getItem('user'));
+
       fetch( "http://localhost:3000/appointments/"+localstorage_user._id, {
         method: 'get',
         headers: {
@@ -36,59 +76,59 @@ const Appointments = () => {
             {
                 console.log("Invalid User Token")
             }
-      }, [])
+            setCount(100);
+      }, [count])
 if (error) {
         return <div>Error: {error.message}</div>;
     } 
      else {
-         console.log(users)
+         
         return (
 
           <div>
             <Navbar />
-            <ul>
-                {users.map(user => (
-                <div className="student-profile py-4">
-                <div className="container">
-                    <div className="col-lg-8">
-                      <div className="card shadow-sm">
-                        <div className="card-header bg-transparent border-0">
-                          <h3 class="mb-0"><i class="far fa-clone pr-1"></i>General Information</h3>
-                        </div>
-                        <div className="card-body pt-0">
-                          <table className="table table-bordered">
-                            <tr>
-                              <th width="30%">Professor</th>
-                              <td width="2%">:</td>
-                              <td>{user.tutor_name}</td>
-                            </tr>
-                            <tr>
-                              <th width="30%">Subject</th>
-                              <td width="2%">:</td>
-                              <td>{user.subject}</td>
-                            </tr>
-                            <tr>
-                              <th width="30%">Date</th>
-                              <td width="2%">:</td>
-                              <td>{user.date}</td>
-                            </tr>
-                            <tr>
-                              <th width="30%">Time</th>
-                              <td width="2%">:</td>
-                              <td>{user.time}</td>
-                            </tr>
-                          </table>
-                        </div>
-                      </div>
-                      <Link to = {`/home`}><a href="#"></a><button class="button" style ={{padding : '10px 15px 10px 15px'}}>
-              Back
-            </button></Link>
-                    </div>
-                  </div>
-                </div>
+            <Link to = "/"><a href="#"></a>
+            <button type="submit" class="btn" style={{margin : "20px"}}>
+                Back
+            </button></Link> &nbsp;&nbsp;
+            
+            <h2 style={{textAlign:"center",color:"white"}}>List of Scheduled Upcoming Appointments</h2>
+            <table  className="table table-bordered table-light" style={{width:"80%",marginLeft:"10%"}}>
+                <thead className="thead-dark">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tutor Name</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Action</th>
+                    </tr>
+                </thead>
+            <tbody>
+
+                {users.map((user, i) => (
+                    <tr key={i}>
+
+                        <td>{i+1}</td>
+                        <td>{user.tutor_name}</td>
+                        <td>{user.subject}</td>
+                        <td>{user.date}</td>
+                        <td>{user.time}</td>
+                        <td>
+                          <button className="button" 
+                          onClick={() => handleDelete(user)}>Cancel</button>
+                        </td>
+ 
+                        
+                        
+
+                    </tr>
                 ))}
-            </ul>
-          </div>
+            </tbody>
+            </table>
+            
+
+        </div>
             
             
         );

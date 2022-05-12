@@ -9,30 +9,31 @@ var collection_tutors = db.get('Tutors');
 const auth = require('./middleware/auth');
 
 
-
 router.get('/:tutor_id', auth, function(req, res) {
 
-  collection_appointments.aggregate( [
+  var today = new Date(new Date().setDate(new Date().getDate()));
+  var dd_min = today.getDate();
+  var mm_min = today.getMonth() + 1;
+  var yyyy_min = today.getFullYear();
 
-       { $match: {tutor_id : monk.id(req.params.tutor_id)}},
-       {
-       $lookup:
-          {
-             from: "Tutors",
-             localField: "tutor_id",
-             foreignField: "_id",
-             as: "Appointments"
-           }
-        },
-        { $project: { "Appointments": 0} }
-    
-  ],function(err,tutors){
-    if(err) throw err;
-    res.json(tutors);
-  
-  })
+
+  if (dd_min < 10) {
+    dd_min = '0' + dd_min
+}
+
+if (mm_min < 10) {
+    mm_min = '0' + mm_min
+}
+today = yyyy_min + '-' + mm_min + '-' + dd_min;
+
+collection_appointments.find({tutor_id : monk.id(req.params.tutor_id),
+date : {$gte: today}},{sort: {date: 1}}
+,function(err,appointment){
+  if(err) throw err;
+  res.json(appointment);
+})
+
 });
-
 router.get('/:tutor_id/:appointment_id', auth, function(req, res) {
 
   collection_appointments.aggregate( [

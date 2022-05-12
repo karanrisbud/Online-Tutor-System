@@ -15,8 +15,8 @@ class Tutor_details extends Component {
       tutor_email: null,
       tutor_image: null,
       tutor_about_me: null,
-      tutor_average_ratings: null,
-      tutor_total_tutoring_hours: null,
+      tutor_average_ratings: 0,
+      tutor_total_tutoring_hours: 0,
       tutor_subject: null,
     };
   }
@@ -41,14 +41,84 @@ class Tutor_details extends Component {
     this.setState({
       tutor_id : tutor._id,
       tutor_name: tutor.name,
-      tutor_image: tutor.image,
+      
       tutor_email: tutor.email,
-      tutor_about_me: tutor.about_me,
-      tutor_average_ratings: tutor.average_ratings,
-      tutor_total_tutoring_hours: tutor.total_tutoring_hours,
+      tutor_about_me: tutor.about_me,     
       tutor_subject: tutor.subject,
     });
+    console.log(tutor.image);
+    console.log(tutor.image);
+    console.log(tutor.image);
+    if(tutor.image)
+    
+      this.setState({tutor_image :"assets/tutor_images/" + tutor.image});
+    else
+      this.setState({tutor_image : "assets/tutor_images/prof_default.jpg"})
     localStorage.setItem('tutor_id',tutor._id);
+
+    try{
+      const localstorage_user = JSON.parse(localStorage.getItem('user'));
+      const localstorage_tutor = localStorage.getItem('tutor_id');
+      fetch("http://localhost:3000/appointments_tutor/"+localstorage_tutor, {
+      method: 'get',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'x-auth-token': localstorage_user.token
+          
+      }
+
+  })
+        .then(res => res.json())
+        .then(
+            (data) => {
+              this.setState({tutor_total_tutoring_hours: data.length});
+            },
+
+        )
+    }
+    catch(e)
+    {
+      console.log("Invalid token");
+    }
+    try{
+      const localstorage_user = JSON.parse(localStorage.getItem('user'))
+      const localstorage_tutor = localStorage.getItem('tutor_id')
+        fetch("http://localhost:3000/feedback/"+localstorage_tutor, {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'x-auth-token': localstorage_user.token
+            
+        }
+  
+    })
+          .then(res => res.json())
+          .then(
+              (data) => {
+                if(data.length>0){
+                var tot = 0
+                console.log(data)
+                for (let i = 0; i < data.length; i++) {
+                    tot = tot + data[i]["rating"]
+                }
+                this.setState({tutor_average_ratings:tot/data.length});
+              }
+              },
+
+          )
+      }
+      catch(e)
+      {
+        console.log("Invalid token");
+      }
+
+
+
+
+
+    
   };
 
   render() {
@@ -84,7 +154,7 @@ class Tutor_details extends Component {
                 className="card mb-3"
                 onClick={() => this.handleClick(tutor)}
                 style={{
-                  maxWidth: "45%",
+                  width: "45%",
                   float: "left",
                   height: "250px",
                   cursor: "pointer",
@@ -94,22 +164,18 @@ class Tutor_details extends Component {
                 <div className="row g-0">
                   <div className="col-md-4 py-2">
                     <img
-                      src={"assets/tutor_images/" + tutor.image}
+                        src={"assets/tutor_images/" + tutor.image}
+                        onError={({ currentTarget }) => {
+                          currentTarget.onerror = null; // prevents looping
+                          currentTarget.src="assets/tutor_images/prof_default.jpg";
+                        }}
+                      
                       style={{ height: "150px", width: "250px" }}
                       className="img-fluid rounded-start"
-                      alt="..."
+                      
                     />
                     <br></br>
-                    <StarRatings
-                      rating={tutor.average_ratings}
-                      starRatedColor="red"
-                      numberOfStars={5}
-                      name="rating"
-                      starDimension="14px"
-                      starSpacing="4px"
-                    />
-                    &nbsp;&nbsp;
-                    <small>{tutor.average_ratings}</small>
+
                   </div>
                   <div className="col-md-8">
                     <div className="card-body">
@@ -131,8 +197,8 @@ class Tutor_details extends Component {
     } else {
       return (
         <div>
-          <div class="btn-group">
-            <button class="button" onClick={() => this.goPrevious()} style ={{margin : '10px 15px 10px 15px'}}>
+          <div className="btn-group">
+            <button className="button" onClick={() => this.goPrevious()} style ={{margin : '10px 15px 10px 15px'}}>
               Back
             </button>
           </div>
@@ -145,7 +211,7 @@ class Tutor_details extends Component {
                     style={{ width: "600px" }}
                     title=""
                     className="img-circle img-thumbnail isTooltip"
-                    src={"assets/tutor_images/" + this.state.tutor_image}
+                    src={this.state.tutor_image}
                     data-original-title="Usuario"
                   />
                   <ul
@@ -264,7 +330,14 @@ class Tutor_details extends Component {
                       </tbody>
                     </table>
 
-                    <Favourite_button
+                    
+                  </div>
+                  
+                </div>
+                
+              </div>
+              <div style={{marginLeft:"20%"}}>
+              <Favourite_button
                      tutor_id = {this.state.tutor_id} />
 
                      &nbsp;&nbsp;
@@ -280,7 +353,7 @@ class Tutor_details extends Component {
 
                     <Link to= '/reviews'>
                         <button type="button">
-                              View reviews
+                              Reviews
                         </button>
                     </Link>
 
@@ -291,12 +364,9 @@ class Tutor_details extends Component {
                               Book Appointment
                         </button>
                     </Link>
+                    </div>
 
 
-                  </div>
-                  
-                </div>
-              </div>
             </div>
           </div>
         </div>

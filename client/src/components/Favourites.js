@@ -74,45 +74,53 @@ if (error) {
     } 
      else {
          console.log(users)
-        return (
+
+         return (
 
           <div>
             <Navbar />
-            <ul>
-                {users.map((tutors,id) => (
-                <div className="student-profile py-4">
-                <div className="container">
-                    <div className="col-lg-8">
-                      <div className="card shadow-sm">
-                        <div className="card-header bg-transparent border-0">
-                          <h3 className="mb-0"><i className="far fa-clone pr-1"></i>General Information</h3>
-                        </div>
-                        <div className="card-body pt-0">
-                          <table className="table table-bordered">
-                            <tr>
-                              <th width="30%">Professor</th>
-                              <td width="2%">:</td>
-                              <td>{tutors.tutor_name}</td>
-                            </tr>
-                            <tr>
-                              <th width="30%">Subject</th>
-                              <td width="2%">:</td>
-                              <td>{tutors.subject}</td>
-                            </tr>
-                          </table>
-                        </div>
-                      </div>
-                      <button className="button" style ={{padding : '10px 15px 10px 15px'}} onClick={() => handleFavourite(tutors)}>Remove from favourites</button>
+            <Link to = "/"><a href="#"></a>
+            <button type="submit" class="btn" style={{margin : "20px"}}>
+                Back
+            </button></Link> &nbsp;&nbsp;
             
-                    </div>
-                  </div>
-                </div>
+            <h2 style={{textAlign:"center",color:"white"}}>List of Favourite Tutors</h2>
+            <table  className="table table-bordered table-light" style={{width:"80%",marginLeft:"10%"}}>
+                <thead className="thead-dark">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tutor Name</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Action</th>
+                    </tr>
+                </thead>
+            <tbody>
+
+                {users.map((tutor, i) => (
+                    <tr key={i}>
+
+                        <td>{i+1}</td>
+                        <td>{tutor.tutor_name}</td>
+                        <td>{tutor.subject}</td>
+                        <td>
+                          <button className="button" 
+                          onClick={() => handleFavourite(tutor)}>Remove</button>
+                        </td>
+ 
+                        
+                        
+
+                    </tr>
                 ))}
-            </ul>
-          </div>
+            </tbody>
+            </table>
+            
+
+        </div>
             
             
         );
+
     }
 }
 export default Favourites;

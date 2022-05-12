@@ -2,6 +2,7 @@ import React, {useState,useEffect} from 'react';
 import './style.css'
 import {Link} from 'react-router-dom';
 import Navbar from './Navbar.js'
+import axios from 'axios';
 
 
 function Profile_edit() {
@@ -11,7 +12,37 @@ function Profile_edit() {
     const [mobile_no,setMobile] = useState(null);
     const [username,setUsername] = useState(null);
     const [selectedFile,setselectedFile] = useState(null);
-    
+    const [isSelected, setIsSelected] = useState(false);
+    const [uploadedFile, setuploadedFile] = useState(null);
+
+	const changeHandler = (event) => {
+		setselectedFile(event.target.files[0]);
+		setIsSelected(true);
+	};
+
+    const handleSubmission = async () => {
+		const formData = new FormData();
+		formData.append('File', selectedFile);
+        const localstorage_user = JSON.parse(localStorage.getItem('user'));
+        try{
+            const res = await axios.post('http://localhost:3000/profile_user/image/' + localstorage_user._id,formData,{
+
+                headers : {
+                    'Content-Type': 'multipart/form-data',
+                }
+            });
+            const {fileName,filePath} = res.data;
+            setuploadedFile({fileName,filePath});
+            alert("Profile image Uploaded Successfully");
+            
+
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
+       
+	};
 
     const handleInputChange = (e) => {
         const {id , value} = e.target;
@@ -28,11 +59,10 @@ function Profile_edit() {
         if(id === "mobile_no"){
             setMobile(value);
         }
-        if(id == "file")
-            setselectedFile(value.files[0]);
-
 
     }
+
+
 
 
 
@@ -138,13 +168,14 @@ function Profile_edit() {
                     <input  type="mobile_no" id="mobile_no" className="form__input" value={mobile_no} onChange = {(e) => handleInputChange(e)} />
                 </div>
 
+
                 <div className="file">
-                    <label className="form__label" for="file">Image </label>
-                    <input  type="file" id="file" className="file" onChange = {(e) => handleInputChange(e)} />
+                    <label className="form__label" for="file">Upload Image</label>
+                    <input  type="file" id="file" name='file' className="form__input" onChange={changeHandler} 
+                        style={{display:"inline"}} />
                 </div>
 
-                
-
+                <button onClick={handleSubmission} style={{display:"inline"}}>Upload</button>
 
 
             </div>
