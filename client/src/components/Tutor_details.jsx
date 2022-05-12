@@ -132,7 +132,7 @@ class Tutor_details extends Component {
       return (
         <div>
           <div class="btn-group">
-            <button class="button" onClick={() => this.goPrevious()} style ={{padding : '10px 15px 10px 15px'}}>
+            <button class="button" onClick={() => this.goPrevious()} style ={{margin : '10px 15px 10px 15px'}}>
               Back
             </button>
           </div>
@@ -272,7 +272,23 @@ class Tutor_details extends Component {
                 
                     <Link to= '/feedback'>
                         <button type="button">
-                              Provide Feedback
+                              Give Feedback
+                        </button>
+                    </Link>
+
+                    &nbsp;&nbsp;
+
+                    <Link to= '/reviews'>
+                        <button type="button">
+                              View reviews
+                        </button>
+                    </Link>
+
+                    &nbsp;&nbsp;
+
+                    <Link to= '/schedule_appointment'>
+                        <button type="button">
+                              Book Appointment
                         </button>
                     </Link>
 

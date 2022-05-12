@@ -28,15 +28,13 @@ function Profile_edit() {
         if(id === "mobile_no"){
             setMobile(value);
         }
+        if(id == "file")
+            setselectedFile(value.files[0]);
 
 
     }
 
-    const fileSelectedHandler = (e) =>{
 
-        setselectedFile(e.target.files[0])
-
-    }
 
 
  
@@ -44,6 +42,13 @@ function Profile_edit() {
 
         e.preventDefault();
         const localstorage_user = JSON.parse(localStorage.getItem('user'))
+        const formData = new FormData();
+        formData.append(
+            "myFile",
+            selectedFile,
+            selectedFile.name
+        )
+
         
         fetch('http://localhost:3000/profile_user/' + localstorage_user._id, {
             method: "PUT",
@@ -57,7 +62,9 @@ function Profile_edit() {
               "username":username,
               "name" : name,
               "mobile_no" : mobile_no,
-              "email" : email     
+              "email" : email,
+              formData
+                  
             } )
           })
           .then(res => res.json())
@@ -130,6 +137,13 @@ function Profile_edit() {
                     <label className="form__label" for="mobile_no">Mobile No. </label>
                     <input  type="mobile_no" id="mobile_no" className="form__input" value={mobile_no} onChange = {(e) => handleInputChange(e)} />
                 </div>
+
+                <div className="file">
+                    <label className="form__label" for="file">Image </label>
+                    <input  type="file" id="file" className="file" onChange = {(e) => handleInputChange(e)} />
+                </div>
+
+                
 
 
 

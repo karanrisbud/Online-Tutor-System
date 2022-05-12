@@ -7,13 +7,14 @@ import Profile from './components/Profile.js';
 import Favourites from './components/Favourites.js';
 import About from './components/About.js'
 import Feedback from './components/Feedback.js'
+import Reviews from './components/Reviews.js'
 import Appointments from './components/Appointments.js'
 import Profile_edit from './components/Profile_edit.js'
 import Profile_tutor from './components/Profile_tutor.js'
 import Profile_tutor_edit from './components/Profile_tutor_edit.js'
-
 import React, { Component } from 'react';
 import {Routes,Route} from 'react-router-dom'
+import ScheduleAppointment from './components/ScheduleAppointment.js';
 
 class App extends Component {
     
@@ -31,6 +32,8 @@ class App extends Component {
             <Route path='/about' element = {<About />}></Route>
             <Route path='/tutors' element = {<Tutor />}></Route>
             <Route path='/feedback' element = {<Feedback />}></Route>
+            <Route path='/schedule_appointment' element = {<ScheduleAppointment />}></Route>
+            <Route path='/reviews' element = {<Reviews />}></Route>
             <Route path='/appointments' element = {<Appointments />}></Route>
             <Route path='/profile_edit' element = {<Profile_edit />}></Route>
             <Route path='/profile_tutor_edit' element = {<Profile_tutor_edit />}></Route>
